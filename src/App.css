@@ -5,11 +5,31 @@ body, #root {
 	padding: 0;
 }
 
+.app {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
 
-.App {
+.controls {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
+	flex: 7;
 }
+
+.model-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	/* flex: 3 */
+	width: 60%;
+}
+
+

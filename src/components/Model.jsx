@@ -1,9 +1,9 @@
 import Home from '../../public/Home';
+import "../styles/model.css";
 
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Html } from '@react-three/drei';
-im
 
 function Model() {
 	return (

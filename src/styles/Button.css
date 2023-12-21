@@ -1,0 +1,18 @@
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--chinese-white);
+    background-color: transparent;
+    border: 2px solid var(--chinese-white);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: var(--timberwolf);
+    color: var(--main-bg);
+  }
+  

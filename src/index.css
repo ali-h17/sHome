@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color: var(--chinese-white);
-  background-color: var(--maastricht-blue);
+  background-color: hsl(210deg, 30%, 8%); ;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,6 +15,14 @@
   --maastricht-blue: #092337;
   --chinese-white: #E1E1DA;
   --desert-sand: #E7D5A7;
+  --brown-chcolate: #5A233B;
+  --timberwolf: #DDD8D5;
+  --dark-cerulean: #02586F;
+  --pale-cerulean: #99CAD9;
+  --main-bg: hsl(210deg, 30%, 8%); 
+  /* hsla(210deg, 30%, 8%, 0.85); 
+  hsl(210deg, 30%, 12%) */
+
 
 }
 
