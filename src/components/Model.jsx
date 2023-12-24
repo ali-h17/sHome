@@ -1,11 +1,11 @@
 import House_v3 from '../../public/House_v3';
-import "../styles/model.css"
+import '../styles/model.css';
 
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Html } from '@react-three/drei';
 
-function Model({state}) {
+function Model({ state }) {
 	return (
 		<>
 			<Canvas>
@@ -17,7 +17,7 @@ function Model({state}) {
 					position={[0, 10, 15]}
 				/>
 				<Suspense fallback={<Html>Loading...</Html>}>
-					<House_v3 state={state}/>
+					<House_v3 state={state} />
 				</Suspense>
 
 				<OrbitControls />
