@@ -12,11 +12,15 @@
   "dependencies": {
     "@react-three/drei": "^9.92.5",
     "@react-three/fiber": "^8.15.12",
+    "@uidotdev/usehooks": "^2.4.1",
     "axios": "^1.6.2",
     "drei": "^2.2.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "three": "^0.159.0"
+    "react-loader-spinner": "^6.1.6",
+    "three": "^0.159.0",
+    "websocket": "^1.0.34",
+    "ws": "^8.15.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

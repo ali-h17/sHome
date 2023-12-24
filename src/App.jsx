@@ -1,39 +1,54 @@
-import './App.css';
-
+import React, { useEffect, useMemo, useState } from 'react';
 import Model from './components/Model';
 import Controls from './components/Controls';
+import ESPConnector from './classes/ESPConnector';
+import Button from './components/Button';
+import Spinner from './components/Spinner';
 
-import axios from 'axios';
-import { useEffect, useContext } from 'react';
-import { Context } from './components/StateContext';
-
+import './styles/App.css';
 
 function App() {
+	const [state, setState] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
 
-	const [state, setState] = useContext(Context);
+	const espConnector = useMemo(
+		() => new ESPConnector('ws://192.168.130.85:80/ws', setState),
+		[]
+	);
 
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await axios.get('https://api.example.com/data');
-				console.log('GET Request Response:', response.data);
-			} catch (error) {
-				console.error('Error fetching data:', error);
-			}
-		};
-		fetchData();
+		espConnector.connect(setIsLoading);
 	}, []);
 
-	useEffect(() => {}, []);
+
+	function handleGarageClick() {
+		const msg = {
+			...state,
+			isGarageOpen: !state.isGarageOpen,
+		};
+		espConnector.send(msg);
+	}
+
+
+	if (isLoading) {
+		return (
+			<div className="loading-screen">
+				<p>Connecting...</p>
+				<Spinner />
+			</div>
+		);
+	}
 
 	return (
 		<>
 			<div className="app">
 				<div className="model-container">
-					<Model />
+					<Model state={state} />
 				</div>
 				<div className="controls">
-					<Controls />
+					<Button onClick={handleGarageClick}>
+						{state.garageOpen ? 'Close' : 'Open'} Garage
+					</Button>
 				</div>
 			</div>
 		</>
