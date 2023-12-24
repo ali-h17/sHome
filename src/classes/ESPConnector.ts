@@ -2,7 +2,7 @@ import { w3cwebsocket } from 'websocket';
 
 class ESPConnector {
     private ip: String;
-    private ws: typeof w3cwebsocket;
+    private ws!: w3cwebsocket;
     private callback: Function;
     private connected: Boolean;
     private recievedInitalSate: Boolean;
@@ -19,7 +19,7 @@ class ESPConnector {
 		if (this.connected)
 			return;
 
-        this.ws = new w3cwebsocket(this.ip);
+        this.ws = new w3cwebsocket(this.ip as string);
 
         this.ws.onopen = () => {
             console.log('WebSocket Connection Established');
@@ -47,21 +47,21 @@ class ESPConnector {
         };
     }
 
-    public send(message) {
-        if (this.ws && this.connected) {
-            this.ws.send(JSON.stringify(message));
-            console.log('Sent Message:', message);
-        } else {
-            console.warn('WebSocket connection not established.');
+        public send(message: any) {
+            if (this.ws && this.connected) {
+                this.ws.send(JSON.stringify(message));
+                console.log('Sent Message:', message);
+            } else {
+                console.warn('WebSocket connection not established.');
+            }
         }
-    }
 
-    private handleWebSocketMessage(message) {
-        if (this.callback) {
-			let msg = JSON.parse(message);
-            this.callback(msg);
+        private handleWebSocketMessage(message: any) {
+            if (this.callback) {
+    			let msg = JSON.parse(message);
+                this.callback(msg);
+            }
         }
-    }
 
     public close() {
         if (this.ws) {
