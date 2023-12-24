@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Model from './components/Model';
 import Controls from './components/Controls';
 import ESPConnector from './classes/ESPConnector';
@@ -10,6 +10,7 @@ import { FormGroup } from '@mui/material';
 
 import './styles/App.css';
 import { FormControlLabel } from '@mui/material';
+import IState from './interfaces/IState';
 
 /*
 	JSON OBJECT INTERFACE THAT WILL BE SENT BACK AND FORTH
@@ -18,16 +19,17 @@ import { FormControlLabel } from '@mui/material';
 	}
 
 */
-const init = {
+const init: IState = {
 	isGarageOpen: false,
 	isLivingRoomLight: false,
 	isBedRoomLight: false,
 	manual: false,
 	isLocked: true,
 };
-function App() {
-	const [state, setState] = useState(init);
-	const [isLoading, setIsLoading] = useState(true);
+
+function App(): JSX.Element {
+	const [state, setState] = useState<IState>(init);
+	const [isLoading, setIsLoading] = useState<Boolean>(true);
 
 	const espConnector = useMemo(
 		() => new ESPConnector('ws://192.168.130.85:80/ws', setState),
@@ -45,6 +47,7 @@ function App() {
 			manual: true,
 		};
 		espConnector.send(msg);
+		
 		setState({
 			...state,
 			isGarageOpen: !state.isGarageOpen,
@@ -128,7 +131,7 @@ function App() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.manual}
+										checked={state.manual as boolean}
 										onChange={handleManualSwitchChange}
 									/>
 								}
@@ -140,7 +143,7 @@ function App() {
 							<FormControlLabel
 								control={
 									<Switch
-										checked={state.isLocked}
+										checked={state.isLocked as boolean}
 										onChange={handleLockedSwitchChange}
 									/>
 								}

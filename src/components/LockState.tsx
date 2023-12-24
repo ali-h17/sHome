@@ -1,7 +1,12 @@
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import IState from '../interfaces/IState';
 
-function LockState({ state }) {
+interface LockStateProps {
+	state: IState;
+}
+
+function LockState({ state }: LockStateProps): JSX.Element {
 	return state.isLocked ? (
 		<LockOpenOutlinedIcon sx={{ color: '#4fa94d' }} />
 	) : (

@@ -1,14 +1,21 @@
 import { w3cwebsocket } from 'websocket';
 
 class ESPConnector {
-    constructor(ip, callback) {
+    private ip: String;
+    private ws: typeof w3cwebsocket;
+    private callback: Function;
+    private connected: Boolean;
+    private recievedInitalSate: Boolean;
+
+
+    constructor(ip: String, callback: Function) {
         this.ip = ip;
         this.callback = callback;
         this.connected = false;
         this.recievedInitalSate = false;
     }
 
-    connect(setIsLoading) {
+    public connect(setIsLoading: Function) {
 		if (this.connected)
 			return;
 
@@ -40,7 +47,7 @@ class ESPConnector {
         };
     }
 
-    send(message) {
+    public send(message) {
         if (this.ws && this.connected) {
             this.ws.send(JSON.stringify(message));
             console.log('Sent Message:', message);
@@ -49,22 +56,18 @@ class ESPConnector {
         }
     }
 
-    handleWebSocketMessage(message) {
+    private handleWebSocketMessage(message) {
         if (this.callback) {
 			let msg = JSON.parse(message);
             this.callback(msg);
         }
     }
 
-    close() {
+    public close() {
         if (this.ws) {
             this.ws.close();
             this.connected = false;
         }
-    }
-
-    isConnected() {
-        return this.connected;
     }
 }
 

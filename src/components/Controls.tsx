@@ -1,14 +1,13 @@
 import Button from './Button';
 
-
-function Controls() {
+function Controls(): JSX.Element {
     return (
         <>
-            <Button>
+            <Button onClick={() => {}}>
                 Turn On Light
             </Button>
         </>
     );
 }
 
-export default Controls;    
+export default Controls;
