@@ -20,7 +20,9 @@
     "axios": "^1.6.2",
     "drei": "^2.2.21",
     "react": "^18.2.0",
+    "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.12.0",
     "react-loader-spinner": "^6.1.6",
     "three": "^0.159.0",
     "websocket": "^1.0.34",
@@ -28,6 +30,7 @@
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
+    "@types/react-color": "^3.0.10",
     "@types/react-dom": "^18.2.17",
     "@types/websocket": "^1.0.10",
     "@vitejs/plugin-react": "^4.2.1",

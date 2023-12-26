@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import Button from './Button';
-
 import Switch from '@mui/material/Switch';
+import { ChromePicker } from 'react-color';
 import { FormGroup } from '@mui/material';
 import { FormControlLabel } from '@mui/material';
 import LockState from './LockState';
@@ -18,17 +19,18 @@ function Controls({
 	setState,
 	espConnector,
 }: IControlsProps): JSX.Element {
-	function handleBedRoomLight() {
-		setState({
-			...state,
-			isBedRoomLight: !state.isBedRoomLight,
-		});
-	}
+	const [pickerOpen, setPickerOpen] = useState<Boolean>(false);
 
-	function handleLivingRoomLight() {
+	function handleLightSwitch() {
+		const msg = {
+			...state,
+			isLightOn: !state.isLightOn,
+		};
+
+		espConnector.send(msg);
 		setState({
 			...state,
-			isLivingRoomLight: !state.isLivingRoomLight,
+			isLightOn: !state.isLightOn,
 		});
 	}
 
@@ -70,19 +72,60 @@ function Controls({
 			isGarageOpen: !state.isGarageOpen,
 		});
 	}
+
+	function handleColorChange(color: any) {
+		const msg = {
+			...state,
+			lightColor: color.hex,
+		};
+
+		espConnector.send(msg);
+		setState({
+			...state,
+			lightColor: color.hex,
+		});
+	}
+
+	function handleOpenWindow() {
+		const msg = {
+			...state,
+			LivingRoomWindow: !state.LivingRoomWindow,
+		};
+
+		espConnector.send(msg);
+		setState({
+			...state,
+			LivingRoomWindow: !state.LivingRoomWindow,
+		});
+	}
+
 	return (
 		<div className="controls">
 			<div className="btn-container">
 				<Button onClick={handleGarageClick}>
 					{state.isGarageOpen ? 'Close' : 'Open'} Garage
 				</Button>
-				<Button onClick={handleLivingRoomLight}>
-					{state.isLivingRoomLight ? 'Turn Off' : 'Turn On'}
-				</Button>
 
-				<Button onClick={handleBedRoomLight}>
-					{state.isBedRoomLight ? 'Turn Off' : 'Turn On'}
+				<Button onClick={handleOpenWindow}>
+					{state.LivingRoomWindow ? 'Close' : 'Open'} Window
 				</Button>
+				<div>
+					<Button
+						onClick={() => {
+							setPickerOpen((prev) => !prev);
+						}}
+					>
+						Change Color
+					</Button>
+
+					{pickerOpen ? (
+						<ChromePicker
+							disableAlpha={true}
+							color={state.lightColor as string}
+							onChangeComplete={handleColorChange}
+						/>
+					) : null}
+				</div>
 			</div>
 
 			<div className="switch-container">
@@ -96,6 +139,18 @@ function Controls({
 						}
 						labelPlacement="end"
 						label="Auto Open Garage"
+					/>
+				</FormGroup>
+				<FormGroup>
+					<FormControlLabel
+						control={
+							<Switch
+								checked={state.isLightOn as boolean}
+								onChange={handleLightSwitch}
+							/>
+						}
+						labelPlacement="end"
+						label="Light"
 					/>
 				</FormGroup>
 				<FormGroup>

@@ -15,6 +15,14 @@ body,
 	height: 100%;
 }
 
+.side-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	gap: 8px;
+}
 
 .loading-screen {
 	font-size: 2rem;
@@ -31,15 +39,14 @@ body,
 	align-items: center;
 	justify-content: center;
 	height: 100%;
-	width: 60%;
+	width: 40%;
 }
+
 .controls {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	height: 100%;
-	flex: 7;
 	gap: 20px;
 }
 
@@ -52,5 +59,19 @@ body,
 .switch-container {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 25px;
+}
+
+@media screen and (max-width: 768px) {
+	.app {
+		flex-direction: column;
+	}
+	.side-container {
+		flex: 1;
+	}
+	.model-container {
+		flex: 1;
+		width: 100%;
+		margin-top: 20px;
+	}
 }

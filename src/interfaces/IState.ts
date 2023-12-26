@@ -1,9 +1,14 @@
 interface IState {
-	isGarageOpen: Boolean;
-	isLivingRoomLight: Boolean;
-	isBedRoomLight: Boolean;
-	manual: Boolean;
-	isLocked: Boolean;
+	isGarageOpen: Boolean,
+	lightColor: String,
+	isLightOn: Boolean,
+	manual: Boolean,
+	isLocked: Boolean,
+	LivingRoomWindow: Boolean,
+	isRaining: Boolean,
+	isSunny: Boolean,
+	temp: Number,
+
 }
 
 export default IState;
