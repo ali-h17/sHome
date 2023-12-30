@@ -37,8 +37,8 @@ export default function Model(props: ModelProps) {
 		// 	actions?.CloseGarage?.play();
 		// }
 
-		// if (state.LivingRoomWindow && !prev?.LivingRoomWindow) {
-		// 	// Open LivingRoomWindow
+		// if (state.isWindowOpen && !prev?.isWindowOpen) {
+		// 	// Open isWindowOpen
 		// 	actions?.CloseLeftWindow?.stop();
 		// 	actions?.OpenLeftWindow?.reset();
 		// 	actions?.OpenLeftWindow?.setLoop(THREE.LoopOnce, 0);
@@ -46,8 +46,8 @@ export default function Model(props: ModelProps) {
 		// 		actions.OpenLeftWindow.clampWhenFinished = true;
 		// 	}
 		// 	actions?.OpenLeftWindow?.play();
-		// } else if (!state.LivingRoomWindow && prev?.LivingRoomWindow) {
-		// 	// Close LivingRoomWindow
+		// } else if (!state.isWindowOpen && prev?.isWindowOpen) {
+		// 	// Close isWindowOpen
 		// 	actions?.OpenLeftWindow?.stop();
 		// 	actions?.CloseLeftWindow?.reset();
 		// 	actions?.CloseLeftWindow?.setLoop(THREE.LoopOnce, 0);

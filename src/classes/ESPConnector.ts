@@ -1,17 +1,17 @@
 import { w3cwebsocket } from 'websocket';
 
-class ESPConnector {
-	private ip: String;
+export default class ESPConnector {
+	private readonly ip: String;
 	private ws!: w3cwebsocket;
-	private callback: Function;
+	private readonly callback: Function;
 	private connected: Boolean;
-	private recievedInitalSate: Boolean;
+	private receivedInitialState: Boolean;
 
 	constructor(ip: String, callback: Function) {
 		this.ip = ip;
 		this.callback = callback;
 		this.connected = false;
-		this.recievedInitalSate = false;
+		this.receivedInitialState = false;
 	}
 
 	public connect(setIsLoading: Function) {
@@ -29,19 +29,19 @@ class ESPConnector {
 
 			this.handleWebSocketMessage(event.data);
 
-			if (!this.recievedInitalSate) {
+			if (!this.receivedInitialState) {
 				setIsLoading(false);
-				this.recievedInitalSate = true;
+				this.receivedInitialState = true;
 			}
 		};
 
 		this.ws.onclose = () => {
-			console.log(`Connection Closed`);
+			console.log('Connection Closed');
 			this.connected = false;
 		};
 
-		this.ws.onerror = (error) => {
-			console.error('WebSocket Connection Error:', error);
+		this.ws.onerror = () => {
+			console.error('WebSocket Connection Error');
 		};
 	}
 
@@ -69,4 +69,3 @@ class ESPConnector {
 	}
 }
 
-export default ESPConnector;

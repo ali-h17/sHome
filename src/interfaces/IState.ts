@@ -1,14 +1,14 @@
-interface IState {
+export default interface IState {
 	isGarageOpen: Boolean,
-	lightColor: String,
-	isLightOn: Boolean,
+	lightColor: Number,
+	isLeftLightOn: Boolean,
+	isRightLightOn: Boolean,
 	manual: Boolean,
 	isLocked: Boolean,
-	LivingRoomWindow: Boolean,
+	isWindowOpen: Boolean,
 	isRaining: Boolean,
-	isSunny: Boolean,
 	temp: Number,
-
+	humidity: Number,
+	fire: Boolean,
 }
 
-export default IState;

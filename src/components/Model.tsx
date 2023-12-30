@@ -10,20 +10,20 @@ import { Vector3 } from 'three';
 interface IModelProps {
 	state: IState;
 }
-const initalCameraPosition = new Vector3(-7.17, 3.7, 12.64);
+const initialCameraPosition = new Vector3(-7.17, 3.7, 12.64);
 
 function Model({ state }: IModelProps) {
 	return (
 		<>
-		
 			<Canvas>
-				<PerspectiveCamera makeDefault position={initalCameraPosition} />
+				<PerspectiveCamera makeDefault position={initialCameraPosition} />
 				<directionalLight
 					intensity={0.7}
 					rotation={[-0.506, 0.629, 0.756]}
 					position={[0, 10, 15]}
 				/>
 				<Suspense fallback={<Html>Loading...</Html>}>
+
 					<House state={state} />
 				</Suspense>
 

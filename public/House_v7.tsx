@@ -9,12 +9,18 @@ interface ModelProps {
 	state: IState;
 }
 
+function hexToString(hex: Number): string {
+
+	return '#' + hex.toString(16);
+}
+
 export default function House(props: ModelProps) {
 	const { state } = props;
 	const group = useRef<THREE.Group>();
-	const { nodes, animations } = useGLTF('/house_v5.glb');
+	const { nodes, animations } = useGLTF('/house_v7.glb');
 	const { actions } = useAnimations(animations, group);
 	const prev = usePrevious(state);
+
 
 	useEffect(() => {
 		if (state.isGarageOpen && !prev?.isGarageOpen) {
@@ -37,8 +43,8 @@ export default function House(props: ModelProps) {
 			actions?.CloseGarage?.play();
 		}
 
-		if (state.LivingRoomWindow && !prev?.LivingRoomWindow) {
-			// Open LivingRoomWindow
+		if (state.isWindowOpen && !prev?.isWindowOpen) {
+			// Open isWindowOpen
 			actions?.CloseLeftWindow?.stop();
 			actions?.OpenLeftWindow?.reset();
 			actions?.OpenLeftWindow?.setLoop(THREE.LoopOnce, 0);
@@ -46,8 +52,8 @@ export default function House(props: ModelProps) {
 				actions.OpenLeftWindow.clampWhenFinished = true;
 			}
 			actions?.OpenLeftWindow?.play();
-		} else if (!state.LivingRoomWindow && prev?.LivingRoomWindow) {
-			// Close LivingRoomWindow
+		} else if (!state.isWindowOpen && prev?.isWindowOpen) {
+			// Close isWindowOpen
 			actions?.OpenLeftWindow?.stop();
 			actions?.CloseLeftWindow?.reset();
 			actions?.CloseLeftWindow?.setLoop(THREE.LoopOnce, 0);
@@ -70,6 +76,7 @@ export default function House(props: ModelProps) {
               intensity={2}
               position={[-100, 1000, -100]} 
             />
+
             <directionalLight
               name="Light_2"
               color={new THREE.Color('white')}
@@ -77,24 +84,32 @@ export default function House(props: ModelProps) {
               position={[-100, -1000, -100]} 
             />
             {
-              state.isLightOn ? (
+              state.isLeftLightOn ? (
                 <>
                   <pointLight
-                    name="Light"
-                    color={new THREE.Color(state.lightColor as string)}
-                    intensity={5}
-                    position={[-100, 550, 10]} 
-                  /> 
-                  <pointLight
                     name="Light_2"
-                    color={new THREE.Color(state.lightColor as string)}
-                    intensity={5}
-                    position={[-700, 550, 10]} 
+                    color={new THREE.Color(hexToString(state.lightColor))}
+                    intensity={7}
+                    position={[-700, 550, 10]}
                   />
-                </> 
-                
+                </>
+
                 ) : null
             }
+			{
+              state.isRightLightOn ? (
+                <>
+                  <pointLight
+                    name="Light_1"
+                    color={new THREE.Color('white')}
+                    intensity={5}
+                    position={[-100, 550, 10]}
+                  />
+                </>
+
+                ) : null
+            }
+
 						<group
 							name="Group"
 							position={[-792.387, 319.328, 260.371]}

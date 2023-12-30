@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import React, {useState} from 'react';
 import Button from './Button';
 import Switch from '@mui/material/Switch';
-import { ChromePicker } from 'react-color';
-import { FormGroup } from '@mui/material';
-import { FormControlLabel } from '@mui/material';
+import {ChromePicker} from 'react-color';
+import {FormControlLabel, FormGroup} from '@mui/material';
 import LockState from './LockState';
 import IState from '../interfaces/IState';
 import EspConnector from '../classes/ESPConnector';
+import '../styles/ColorPicker.css';
 
 interface IControlsProps {
 	state: IState;
@@ -16,22 +16,24 @@ interface IControlsProps {
 
 function Controls({
 	state,
-	setState,
 	espConnector,
 }: IControlsProps): JSX.Element {
 	const [pickerOpen, setPickerOpen] = useState<Boolean>(false);
 
 	function handleLightSwitch() {
+		if (state.lightColor === 0) {
+			state.lightColor = 0xffffff;
+		}
 		const msg = {
 			...state,
-			isLightOn: !state.isLightOn,
+			isLeftLightOn: !state.isLeftLightOn,
 		};
 
 		espConnector.send(msg);
-		setState({
-			...state,
-			isLightOn: !state.isLightOn,
-		});
+		// setState({
+		// 	...state,
+		// 	isLightOn: !state.isLightOn,
+		// });
 	}
 
 	function handleManualSwitchChange() {
@@ -41,10 +43,10 @@ function Controls({
 		};
 
 		espConnector.send(msg);
-		setState({
-			...state,
-			manual: !state.manual,
-		});
+		// setState({
+		// 	...state,
+		// 	manual: !state.manual,
+		// });
 	}
 
 	function handleLockedSwitchChange() {
@@ -54,10 +56,10 @@ function Controls({
 		};
 
 		espConnector.send(msg);
-		setState({
-			...state,
-			isLocked: !state.isLocked,
-		});
+		// setState({
+		// 	...state,
+		// 	isLocked: !state.isLocked,
+		// });
 	}
 	function handleGarageClick() {
 		const msg = {
@@ -67,36 +69,43 @@ function Controls({
 		};
 		espConnector.send(msg);
 
-		setState({
-			...state,
-			isGarageOpen: !state.isGarageOpen,
-		});
+		// setState({
+		// 	...state,
+		// 	isGarageOpen: !state.isGarageOpen,
+		// 	manual: true,
+		// });
 	}
 
 	function handleColorChange(color: any) {
+		const hex: Number = parseInt(color.hex.replace(/^#/, ''), 16);
 		const msg = {
 			...state,
-			lightColor: color.hex,
+			lightColor: hex,
 		};
 
 		espConnector.send(msg);
-		setState({
-			...state,
-			lightColor: color.hex,
-		});
+		// setState({
+		// 	...state,
+		// 	lightColor: hex,
+		// });
 	}
 
 	function handleOpenWindow() {
 		const msg = {
 			...state,
-			LivingRoomWindow: !state.LivingRoomWindow,
+			isWindowOpen: !state.isWindowOpen,
 		};
 
 		espConnector.send(msg);
-		setState({
-			...state,
-			LivingRoomWindow: !state.LivingRoomWindow,
-		});
+		// setState({
+		// 	...state,
+		// 	isWindowOpen: !state.isWindowOpen,
+		// });
+	}
+
+	function hexToString(hex: Number) {
+
+		return hex.toString(16);
 	}
 
 	return (
@@ -107,7 +116,7 @@ function Controls({
 				</Button>
 
 				<Button onClick={handleOpenWindow}>
-					{state.LivingRoomWindow ? 'Close' : 'Open'} Window
+					{state.isWindowOpen ? 'Close' : 'Open'} Window
 				</Button>
 				<div>
 					<Button
@@ -121,8 +130,10 @@ function Controls({
 					{pickerOpen ? (
 						<ChromePicker
 							disableAlpha={true}
-							color={state.lightColor as string}
+							color={hexToString(state.lightColor)}
 							onChangeComplete={handleColorChange}
+							className='color-picker'
+
 						/>
 					) : null}
 				</div>
@@ -133,7 +144,7 @@ function Controls({
 					<FormControlLabel
 						control={
 							<Switch
-								checked={state.manual as boolean}
+								checked={!state.manual as boolean}
 								onChange={handleManualSwitchChange}
 							/>
 						}
@@ -145,7 +156,7 @@ function Controls({
 					<FormControlLabel
 						control={
 							<Switch
-								checked={state.isLightOn as boolean}
+								checked={state.isLeftLightOn as boolean}
 								onChange={handleLightSwitch}
 							/>
 						}
