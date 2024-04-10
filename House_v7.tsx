@@ -15,7 +15,7 @@ function hexToString(hex: Number): string {
 export default function House(props: ModelProps) {
 	const { state } = props;
 	const group = useRef<THREE.Group>();
-	const { nodes, animations } = useGLTF('/house_v7.glb');
+	const { nodes, animations } = useGLTF('/sHome/house_v7.glb');
 	const { actions } = useAnimations(animations, group);
 	const prev = usePrevious(state);
 
