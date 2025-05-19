@@ -22,7 +22,7 @@ A dynamic web interface that integrates a 3D model of a home built with **Three.
 * **Three.js** – for 3D rendering of the smart home
 * **ESP32** – for physical device control and sensor data
 * **WebSockets** – for real-time two-way communication
-* **HTML/CSS/JavaScript** – for front-end development
+* **React/Typescript** – for front-end development
 
 ## 🧠 How It Works
 
